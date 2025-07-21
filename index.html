@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSANE Login Party!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* === BASE STYLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Comic Neue', cursive;
+        }
+        
+        /* === DISCO LIGHTS === */
+        .disco-light {
+            position: fixed;
+            width: 200vw;
+            height: 200vh;
+            background: radial-gradient(circle, transparent 50%, rgba(255,0,0,0.2) 70%);
+            animation: discoLights 5s linear infinite;
+            z-index: -3;
+        }
+        
+        @keyframes discoLights {
+            0% { transform: rotate(0deg); background: radial-gradient(circle, transparent 50%, rgba(255,0,0,0.2) 70%); }
+            25% { background: radial-gradient(circle, transparent 50%, rgba(0,255,0,0.2) 70%); }
+            50% { background: radial-gradient(circle, transparent 50%, rgba(0,0,255,0.2) 70%); }
+            75% { background: radial-gradient(circle, transparent 50%, rgba(255,255,0,0.2) 70%); }
+            100% { transform: rotate(360deg); background: radial-gradient(circle, transparent 50%, rgba(255,0,255,0.2) 70%); }
+        }
+        
+        /* === RAINBOW BACKGROUND === */
+        .rainbow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                #ff0000, #ff9900, #ffff00, 
+                #33cc33, #0099ff, #6633cc, 
+                #cc33cc, #ff0000);
+            background-size: 800% 800%;
+            animation: rainbow 10s ease infinite;
+            opacity: 0.3;
+            z-index: -2;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* === FLOATING EMOJIS === */
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatAround 15s infinite linear;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50vw, 25vh) rotate(90deg); }
+            50% { transform: translate(25vw, 50vh) rotate(180deg); }
+            75% { transform: translate(-25vw, 25vh) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* === MAIN CONTAINER === */
+        .crazy-login {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            animation: wobble 3s infinite alternate;
+        }
+        
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(-1deg); }
+            75% { transform: rotate(0.5deg); }
+            100% { transform: rotate(-0.5deg); }
+        }
+        
+        /* === TITLE === */
+        .crazy-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Rubik Wet Paint', cursive;
+            font-size: 3rem;
+            color: #ff00ff;
+            text-shadow: 3px 3px 0 #00ffff, 
+                        6px 6px 0 #ffff00;
+            transform: rotate(-5deg);
+            animation: titlePulse 2s infinite alternate;
+        }
+        
+        @keyframes titlePulse {
+            0% { transform: rotate(-5deg) scale(1); }
+            100% { transform: rotate(-5deg) scale(1.1); }
+        }
+        
+        /* === INPUT GROUPS === */
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+            perspective: 1000px;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #ff00ff;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 20px 20px 20px 60px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            box-shadow: 0 5px 30px rgba(255, 0, 255, 0.5);
+            transform: rotateY(10deg);
+        }
+        
+        .input-group input:focus + i {
+            transform: translateY(-50%) rotate(360deg);
+            color: #00ffff;
+        }
+        
+        .input-group label {
+            position: absolute;
+            left: 60px;
+            top: 20px;
+            color: #666;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label {
+            top: -15px;
+            left: 50px;
+            font-size: 0.8rem;
+            background: white;
+            padding: 0 10px;
+            color: #ff00ff;
+            font-weight: bold;
+            transform: scale(1.2);
+        }
+        
+        /* === PASSWORD TOGGLE === */
+        .show-password {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .show-password:hover {
+            color: #00ffff;
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        /* === LOGIN BUTTON === */
+        .login-btn {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 0, 255, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .login-btn:hover:before {
+            left: 100%;
+        }
+        
+        /* === SIGNUP LINK === */
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .signup-link a {
+            color: #ff00ff;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .signup-link a:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #00ffff;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .signup-link a:hover:after {
+            transform: scaleX(1);
+        }
+        
+        /* === CRAZY EFFECTS === */
+        .crazy-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .effect-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff00ff;
+            opacity: 0;
+            animation: effectPop 1s forwards;
+        }
+        
+        @keyframes effectPop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+        
+        /* === RESPONSIVE === */
+        @media (max-width: 600px) {
+            .crazy-login {
+                padding: 30px 20px;
+            }
+            
+            .crazy-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="disco-light"></div>
+    <div class="rainbow-bg"></div>
+    
+    <!-- Floating Emojis -->
+    <div class="floating-emoji" style="top:10%; left:10%;">🤪</div>
+    <div class="floating-emoji" style="top:30%; left:70%;">🎉</div>
+    <div class="floating-emoji" style="top:70%; left:20%;">🌈</div>
+    <div class="floating-emoji" style="top:80%; left:60%;">✨</div>
+    
+    <!-- Main Login Form -->
+    <div class="crazy-login">
+        <div class="crazy-effects" id="crazyEffects"></div>
+        
+        <h1 class="crazy-title">LOGIN MADNESS!</h1>
+        
+        <form class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" required>
+                <i class="fas fa-user-astronaut"></i>
+                <label for="username">Space Username</label>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" required>
+                <i class="fas fa-lock"></i>
+                <label for="password">Secret Code</label>
+                <button type="button" class="show-password">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <span>BEAM ME UP!</span>
+            </button>
+            
+            <div class="signup-link">
+                Not a member? <a href="#">Join the party!</a>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Create more floating emojis
+        const emojis = ['👽', '🚀', '👾', '🤖', '🎊', '🎈', '🦄', '🍕'];
+        for (let i = 0; i < 10; i++) {
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.top = `${Math.random() * 100}%`;
+            emoji.style.left = `${Math.random() * 100}%`;
+            emoji.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            document.body.appendChild(emoji);
+        }
+        
+        // Password toggle
+        const showPasswordBtn = document.querySelector('.show-password');
+        const passwordInput = document.getElementById('password');
+        
+        showPasswordBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                createEffects(this);
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+        
+        // Create crazy effects
+        function createEffects(element) {
+            const rect = element.getBoundingClientRect();
+            const effectsContainer = document.getElementById('crazyEffects');
+            
+            for (let i = 0; i < 20; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'effect-dot';
+                dot.style.left = `${rect.left + rect.width/2}px`;
+                dot.style.top = `${rect.top + rect.height/2}px`;
+                dot.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                dot.style.animationDelay = `${i * 0.1}s`;
+                effectsContainer.appendChild(dot);
+                
+                // Remove dot after animation
+                setTimeout(() => {
+                    dot.remove();
+                }, 1000);
+            }
+        }
+        
+        // Add effects to inputs on focus
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                createEffects(this);
+            });
+        });
+        
+        // Form submission
+        const form = document.querySelector('.login-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('.login-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            // Simulate login processing
+            setTimeout(() => {
+                // Create big celebration
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        createEffects(btn);
+                    }, i * 100);
+                }
+                
+                btn.innerHTML = '<span>WELCOME BACK!</span>';
+                
+                // Reset form after celebration
+                setTimeout(() => {
+                    btn.innerHTML = '<span>BEAM ME UP!</span>';
+                    btn.disabled = false;
+                    form.reset();
+                }, 3000);
+            }, 1500);
+        });
+        
+        // Random wobble effects
+        setInterval(() => {
+            const loginBox = document.querySelector('.crazy-login');
+            loginBox.style.animation = 'none';
+            setTimeout(() => {
+                loginBox.style.animation = 'wobble 3s infinite alternate';
+            }, 10);
+        }, 5000);
+    </script>
+</body>
+</html>
