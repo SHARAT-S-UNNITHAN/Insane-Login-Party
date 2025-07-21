@@ -6,7 +6,10 @@ A wild, colorful, disco-fueled login experience like you've never seen before! P
 
 ## 🎉 Preview
 
-> *(Insert preview screenshots or GIFs here if hosted, or link to a demo)*
+
+
+![Login Party Preview](Insane1.png)
+
 
 ---
 
